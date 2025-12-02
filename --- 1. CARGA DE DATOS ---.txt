@@ -1,0 +1,65 @@
+--- 1. CARGA DE DATOS ---
+✅ Archivo 'Propiedades_Precios.xlsx' cargado exitosamente.
+ℹ️  Columnas relevantes renombradas a 'Valor' y 'Superficie'.
+
+--- Estadísticas Iniciales ---
+               id casa        Valor  nro_domitorios  ...  codigopostal   latitud  longitud
+count        21,613.00    21,613.00       21,613.00  ...     21,613.00 21,613.00 21,613.00
+mean  4,580,301,520.86   540,088.14            3.37  ...     98,077.94     47.56   -122.21
+std   2,876,565,571.31   367,127.20            0.93  ...         53.51      0.14      0.14
+min       1,000,102.00    75,000.00            0.00  ...     98,001.00     47.16   -122.52
+25%   2,123,049,194.00   321,950.00            3.00  ...     98,033.00     47.47   -122.33
+50%   3,904,930,410.00   450,000.00            3.00  ...     98,065.00     47.57   -122.23
+75%   7,308,900,445.00   645,000.00            4.00  ...     98,118.00     47.68   -122.12
+max   9,900,000,190.00 7,700,000.00           33.00  ...     98,199.00     47.78   -121.31
+
+[8 rows x 18 columns]
+
+--- 2. LIMPIEZA DE DATOS ---
+Iniciando proceso de limpieza para asegurar la calidad de los datos:
+ 1. Se eliminarán filas con valores nulos (NaN).
+ 2. Se descartarán registros con valores ilógicos (Superficie <= 10 o Valor <= 0).
+ 3. Se filtrarán outliers o valores atípicos (Superficie >= 1000 m²).
+ 4. Se eliminarán filas duplicadas (exactas) si existen.
+ 5. Validaciones de consistencia de superficies según reglas de negocio:
+    • F (superficieliving_pies2) ≈ M + N (base + arriba)
+    • F (superficieliving_pies2) <= G (superficietotal_pies2)
+    • Si H (nro_pisos) == 1 entonces N (superficie_arriba_pies2) ≈ 0
+------------------------------------------------------------
+Registros originales: 21613
+Eliminados por nulos: 0
+Duplicados detectados (exactos): 0
+Duplicados por 'id casa': 177
+Eliminados por duplicados: 0
+Eliminados por valores ilógicos (Sup <= 10 o Valor <= 0): 0
+Pisos < 0 eliminados: 0
+Precio/superficie fuera de rango (IQR) eliminados: 1322
+Eliminados por inconsistencia F != M+N: 0
+Eliminados por pisos=1 con arriba>0: 5470
+Eliminados por outliers Superficie (1%-99%): 294
+Registros finales: 14350
+✅ Datos limpios actualizados en la tabla.
+
+--- Estadísticas Después de Limpieza ---
+               id casa        Valor  nro_domitorios  ...  codigopostal   latitud  longitud
+count        14,350.00    14,350.00       14,350.00  ...     14,350.00 14,350.00 14,350.00
+mean  4,606,355,532.18   534,857.04            3.37  ...     98,072.61     47.55   -122.19
+std   2,881,859,319.18   366,937.44            0.90  ...         51.71      0.14      0.15
+min       1,000,102.00    75,000.00            0.00  ...     98,001.00     47.16   -122.52
+25%   2,125,064,135.75   310,000.00            3.00  ...     98,031.00     47.45   -122.31
+50%   3,923,950,081.50   440,375.00            3.00  ...     98,058.00     47.56   -122.20
+75%   7,366,875,076.50   657,500.00            4.00  ...     98,116.00     47.67   -122.09
+max   9,842,300,095.00 7,062,500.00           11.00  ...     98,199.00     47.78   -121.31
+
+[8 rows x 18 columns]
+
+=== Resumen de Limpieza ===
+Total inicial: 21613 | Final: 14350
+Nulos: 0 | Duplicados exactos: 0 | Duplicados por id: 177
+Ilógicos (Sup<=10 o Valor<=0): 0
+Pisos < 0: 0
+Precio/superficie (IQR): 1322
+Consistencia F≈M+N eliminados: 0
+Pisos=1 con arriba>0 eliminados: 5470
+Outliers Superficie (1%-99%): 294
+===========================
